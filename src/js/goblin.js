@@ -10,6 +10,11 @@ export default class Goblin {
     let goblinPosition = 0;
     this.interval = setInterval(() => {
       const random = Math.floor(Math.random() * position.length);
+      if (this.misses >= 5) {
+        position[random].classList.remove("goblin");
+        alert("Игра окончена! Вы промахнулись более 4 раз");
+        clearInterval(this.interval);
+      }
       if (random !== goblinPosition) {
         position[goblinPosition].classList.remove("goblin");
         position[random].classList.add("goblin");
@@ -17,11 +22,6 @@ export default class Goblin {
         // this.misses += 1;
         document.querySelector(".misses").innerText =
           `Количество пропущенных: ${this.misses}`;
-      }
-      if (this.misses >= 5) {
-        position[random].classList.remove("goblin");
-        alert("Игра окончена! Вы промахнулись более 4 раз");
-        clearInterval(this.interval);
       }
     }, 1000);
   }
